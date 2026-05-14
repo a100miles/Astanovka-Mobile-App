@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Astanovka());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Astanovka extends StatelessWidget {
+  const Astanovka({super.key});
 
   // This widget is the root of your application.
   @override
