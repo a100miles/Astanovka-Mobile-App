@@ -31,7 +31,7 @@ class Astanovka extends ConsumerWidget {
           surface: Colors.white,
         ),
         scaffoldBackgroundColor: Colors.white,
-        textTheme: GoogleFonts.nunitoSansTextTheme(
+        textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
         ),
         appBarTheme: const AppBarTheme(
