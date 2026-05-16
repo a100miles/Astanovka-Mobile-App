@@ -29,15 +29,15 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Astanovka',
-          style: GoogleFonts.getFont(
-            'Badeen Display',
-            fontWeight: FontWeight.bold,
-            fontSize: 28,
-            color: Colors.green,
-          ),
-        ),
+        // title: Text(
+        //   'Astanovka',
+        //   style: GoogleFonts.getFont(
+        //     'Badeen Display',
+        //     fontWeight: FontWeight.bold,
+        //     fontSize: 28,
+        //     color: Colors.green,
+        //   ),
+        // ),
         centerTitle: false,
         actions: [
           // Language Selector
