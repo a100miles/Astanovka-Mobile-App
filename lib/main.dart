@@ -17,6 +17,7 @@ class Astanovka extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Watch the router and locale providers
     final router = ref.watch(routerProvider);
     final locale = ref.watch(localeProvider);
 
@@ -41,7 +42,7 @@ class Astanovka extends ConsumerWidget {
         ),
         useMaterial3: true,
       ),
-      routerConfig: router,
+      routerConfig: router, // <-- Uses the updated routerProvider with PlaceInfoScreen
     );
   }
 }
