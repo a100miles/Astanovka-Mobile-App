@@ -5,10 +5,28 @@ import '../../features/places/presentation/main_layout.dart';
 import '../../features/places/presentation/main_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/profile/presentation/login_screen.dart';
+import '../../features/profile/data/auth_repository.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
+  final authState = ref.watch(authStateProvider);
   return GoRouter(
     initialLocation: '/places',
+    redirect: (context, state) {
+      final isAtLogin = state.matchedLocation == '/login';
+
+      // While Firebase/Auth is initializing, don't redirect.
+      if (authState.isLoading) return null;
+
+      final user = authState.asData?.value;
+      if (user == null) {
+        return isAtLogin ? null : '/login';
+      }
+
+      // If user is already logged in, keep them out of the login page.
+      if (isAtLogin) return '/profile';
+
+      return null;
+    },
     routes: [
       // The ShellRoute handles the Bottom Navigation Bar
       StatefulShellRoute.indexedStack(
