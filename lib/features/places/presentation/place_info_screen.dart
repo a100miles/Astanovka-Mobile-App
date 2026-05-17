@@ -19,7 +19,7 @@ class PlaceInfoScreen extends StatelessWidget {
         title: Text(placeName),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -28,10 +28,7 @@ class PlaceInfoScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               placeName,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(

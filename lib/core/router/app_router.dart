@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/places/presentation/main_layout.dart';
 import '../../features/places/presentation/main_screen.dart';
+import '../../features/places/presentation/place_info_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/profile/presentation/login_screen.dart';
 
@@ -23,8 +24,20 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/places',
                 builder: (context, state) => const MainScreen(),
-                // TODO for Teammate: Add sub-route for place details here later
-                // e.g., GoRoute(path: ':id', builder: ...)
+                routes: [
+                  // Sub-route: Place Info Screen
+                  GoRoute(
+                    path: 'info', // Full path will be '/places/info'
+                    builder: (context, state) {
+                      final args = state.extra as Map<String, dynamic>;
+                      return PlaceInfoScreen(
+                        placeName: args['name'],
+                        placeDescription: args['description'],
+                        placeImageUrl: args['imageUrl'],
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
