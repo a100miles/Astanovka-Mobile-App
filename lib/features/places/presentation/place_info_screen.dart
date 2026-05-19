@@ -1,4 +1,22 @@
 import 'package:flutter/material.dart';
+import '../data/models/place_model.dart';
+
+class PlaceInfoScreen extends StatelessWidget {
+  final PlaceModel place;
+
+  const PlaceInfoScreen({
+    Key? key,
+    required this.place,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300,
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(place.name),
               background: Image.network(

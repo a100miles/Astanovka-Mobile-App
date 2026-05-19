@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/places/presentation/main_layout.dart';
 import '../../features/places/presentation/main_screen.dart';
 import '../../features/places/presentation/place_info_screen.dart';
+import '../../features/places/data/models/place_model.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/profile/presentation/login_screen.dart';
 import '../../features/profile/data/auth_repository.dart';
@@ -47,11 +48,9 @@ final routerProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: 'info', // Full path will be '/places/info'
                     builder: (context, state) {
-                      final args = state.extra as Map<String, dynamic>;
+                      final place = state.extra as PlaceModel;
                       return PlaceInfoScreen(
-                        placeName: args['name'],
-                        placeDescription: args['description'],
-                        placeImageUrl: args['imageUrl'],
+                        place: place,
                       );
                     },
                   ),
