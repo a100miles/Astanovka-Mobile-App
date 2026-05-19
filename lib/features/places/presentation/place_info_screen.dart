@@ -1,42 +1,71 @@
 import 'package:flutter/material.dart';
-
-class PlaceInfoScreen extends StatelessWidget {
-  final String placeName;
-  final String placeDescription;
-  final String placeImageUrl;
-
-  const PlaceInfoScreen({
-    Key? key,
-    required this.placeName,
-    required this.placeDescription,
-    required this.placeImageUrl,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(placeName),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (placeImageUrl.isNotEmpty)
-              Image.network(placeImageUrl),
-            const SizedBox(height: 16),
-            Text(
-              placeName,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(place.name),
+              background: Image.network(
+                place.imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              placeDescription,
-              style: const TextStyle(fontSize: 16),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.location_on),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          place.address,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.amber),
+                      const SizedBox(width: 8),
+                      Text(
+                        place.rating.toString(),
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'About',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    place.description,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.map),
+                      label: const Text('Open Route'),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
