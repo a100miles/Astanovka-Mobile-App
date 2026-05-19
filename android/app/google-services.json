@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "164488569422",
+    "project_id": "astanovka-mobile-app",
+    "storage_bucket": "astanovka-mobile-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164488569422:android:017c31ff2f649f6b6e991f",
+        "android_client_info": {
+          "package_name": "com.example.final_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQE4u_9xCOWLq9vQX_FOthL5MiN-fL7Jo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
