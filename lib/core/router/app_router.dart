@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import '../../features/places/presentation/main_layout.dart';
 import '../../features/places/presentation/main_screen.dart';
 import '../../features/places/presentation/place_info_screen.dart';
-import '../../features/places/data/models/place_model.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/profile/presentation/login_screen.dart';
 import '../../features/profile/data/auth_repository.dart';
@@ -46,12 +45,11 @@ final routerProvider = Provider<GoRouter>((ref) {
                 routes: [
                   // Sub-route: Place Info Screen
                   GoRoute(
-                    path: 'info', // Full path will be '/places/info'
+                    path: ':id', // Full path will be '/places/:id'
                     builder: (context, state) {
-                      final place = state.extra as PlaceModel;
-                      return PlaceInfoScreen(
-                        place: place,
-                      );
+                      final idRaw = state.pathParameters['id'] ?? '';
+                      final id = int.tryParse(idRaw);
+                      return PlaceInfoScreen(placeId: id);
                     },
                   ),
                 ],

@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/providers/database_providers.dart';
+import '../../../core/widgets/language_switcher.dart';
+import '../../../l10n/app_localizations.dart';
 import '../data/auth_repository.dart';
 import 'controllers/auth_controller.dart';
 
@@ -12,11 +14,18 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authStateProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Text(l10n.profileTab),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: LanguageSwitcher(),
+          ),
+        ],
       ),
       body: authState.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -26,9 +35,12 @@ class ProfileScreen extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Auth error',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                Text(
+                  l10n.authError,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -38,7 +50,7 @@ class ProfileScreen extends ConsumerWidget {
                 const SizedBox(height: 16),
                 FilledButton(
                   onPressed: () => ref.invalidate(authStateProvider),
-                  child: const Text('Retry'),
+                  child: Text(l10n.retry),
                 ),
               ],
             ),
@@ -65,20 +77,18 @@ class _LoggedOutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'You are not signed in.',
-              style: TextStyle(fontSize: 18),
-            ),
+            Text(l10n.notSignedIn, style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 16),
             FilledButton(
               onPressed: onLogin,
-              child: const Text('Go to Login'),
+              child: Text(l10n.goToLogin),
             ),
           ],
         ),
@@ -94,7 +104,8 @@ class _LoggedInView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = user.email ?? 'No email';
+    final l10n = AppLocalizations.of(context)!;
+    final email = user.email ?? l10n.noEmail;
     final uid = user.uid;
 
     final favorites = ref.watch(favoritePlacesProvider(uid));
@@ -103,7 +114,7 @@ class _LoggedInView extends ConsumerWidget {
       padding: const EdgeInsets.all(16),
       children: [
         Text(
-          'Signed in as',
+          l10n.signedInAs,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),
@@ -114,11 +125,11 @@ class _LoggedInView extends ConsumerWidget {
             await ref.read(authControllerProvider.notifier).signOut();
           },
           icon: const Icon(Icons.logout),
-          label: const Text('Sign Out'),
+          label: Text(l10n.signOut),
         ),
         const SizedBox(height: 24),
         Text(
-          'Favorite Places',
+          l10n.favoritePlaces,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),
@@ -127,12 +138,12 @@ class _LoggedInView extends ConsumerWidget {
             padding: EdgeInsets.symmetric(vertical: 16),
             child: Center(child: CircularProgressIndicator()),
           ),
-          error: (error, _) => Text('Favorites error: $error'),
+          error: (error, _) => Text(l10n.favoritesError(error.toString())),
           data: (items) {
             if (items.isEmpty) {
-              return const Padding(
+              return Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
-                child: Text('No favorites yet. Add some places to favorites.'),
+                child: Text(l10n.noFavorites),
               );
             }
 
@@ -145,8 +156,9 @@ class _LoggedInView extends ConsumerWidget {
                       title: Text(fav.name),
                       subtitle:
                           fav.address == null ? null : Text(fav.address!),
+                      onTap: () => context.push('/places/${fav.placeId}'),
                       trailing: IconButton(
-                        tooltip: 'Remove',
+                        tooltip: l10n.remove,
                         onPressed: () async {
                           await ref.read(appDatabaseProvider).removeFavorite(
                                 userIdValue: uid,

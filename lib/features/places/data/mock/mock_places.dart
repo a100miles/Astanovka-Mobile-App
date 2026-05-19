@@ -11,6 +11,8 @@ final List<PlaceModel> mockPlaces = [
     category: 'Museums',
     address: 'Nurzhol Blvd, Astana',
     rating: 4.8,
+    latitude: 51.128307,
+    longitude: 71.430601,
   ),
   PlaceModel(
     id: 2,
@@ -22,6 +24,8 @@ final List<PlaceModel> mockPlaces = [
     category: 'Parks',
     address: 'Central Astana',
     rating: 4.6,
+    latitude: 51.155226,
+    longitude: 71.412414,
   ),
   PlaceModel(
     id: 3,
@@ -33,6 +37,8 @@ final List<PlaceModel> mockPlaces = [
     category: 'Restaurants',
     address: 'Kabanbay Batyr Ave, Astana',
     rating: 4.7,
+    latitude: 51.136910,
+    longitude: 71.410580,
   ),
   PlaceModel(
     id: 4,
@@ -44,6 +50,8 @@ final List<PlaceModel> mockPlaces = [
     category: 'Museums',
     address: 'Tauelsizdik Ave, Astana',
     rating: 4.9,
+    latitude: 51.118915,
+    longitude: 71.469251,
   ),
   PlaceModel(
     id: 5,
@@ -55,5 +63,7 @@ final List<PlaceModel> mockPlaces = [
     category: 'Parks',
     address: 'Turan Ave, Astana',
     rating: 4.5,
+    latitude: 51.091732,
+    longitude: 71.411930,
   ),
 ];

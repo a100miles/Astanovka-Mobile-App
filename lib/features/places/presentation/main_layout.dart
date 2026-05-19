@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../l10n/app_localizations.dart';
 
 class MainLayout extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -17,6 +18,7 @@ class MainLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       extendBody: true, // Allows the body to scroll underneath the navigation bar
       body: navigationShell,
@@ -37,16 +39,16 @@ class MainLayout extends StatelessWidget {
                   showUnselectedLabels: false,
                   currentIndex: navigationShell.currentIndex,
                   onTap: (index) => _onTap(context, index),
-                  items: const [
+                  items: [
                     BottomNavigationBarItem(
                       icon: Icon(Icons.map_outlined, size: 28),
                       activeIcon: Icon(Icons.map, size: 28),
-                      label: 'Places',
+                      label: l10n.placesTab,
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.person_outline, size: 28),
                       activeIcon: Icon(Icons.person, size: 28),
-                      label: 'Profile',
+                      label: l10n.profileTab,
                     ),
                   ],
                 ),

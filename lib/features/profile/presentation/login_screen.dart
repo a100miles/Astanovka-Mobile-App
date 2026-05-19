@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'controllers/auth_controller.dart';
+import '../../../l10n/app_localizations.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -27,6 +28,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     ref.listen<AsyncValue<void>>(authControllerProvider, (previous, next) {
       next.whenOrNull(
         error: (error, _) {
@@ -49,7 +51,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isRegisterMode ? 'Create Account' : 'Sign In'),
+        title: Text(_isRegisterMode ? l10n.createAccount : l10n.signIn),
         // Back button is automatically added by go_router since we used context.push()
       ),
       body: Padding(
@@ -62,8 +64,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             children: [
               Text(
                 _isRegisterMode
-                    ? 'Create an account to save favorite places.'
-                    : 'Sign in to see your profile and favorites.',
+                    ? l10n.loginSubtitleRegister
+                    : l10n.loginSubtitleSignIn,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 16),
               ),
@@ -73,15 +75,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 keyboardType: TextInputType.emailAddress,
                 autofillHints: const [AutofillHints.email],
                 enabled: !isLoading,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
+                decoration: InputDecoration(
+                  labelText: l10n.email,
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   final email = value?.trim() ?? '';
-                  if (email.isEmpty) return 'Email is required';
+                  if (email.isEmpty) return l10n.emailRequired;
                   final looksLikeEmail = RegExp(r'^.+@.+\..+$').hasMatch(email);
-                  if (!looksLikeEmail) return 'Enter a valid email';
+                  if (!looksLikeEmail) return l10n.emailInvalid;
                   return null;
                 },
               ),
@@ -92,7 +94,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 enabled: !isLoading,
                 autofillHints: const [AutofillHints.password],
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: l10n.password,
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
                     onPressed: isLoading
@@ -105,8 +107,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 validator: (value) {
                   final password = value ?? '';
-                  if (password.isEmpty) return 'Password is required';
-                  if (password.length < 6) return 'Minimum 6 characters';
+                  if (password.isEmpty) return l10n.passwordRequired;
+                  if (password.length < 6) return l10n.passwordMin;
                   return null;
                 },
                 onFieldSubmitted: (_) => _submit(),
@@ -115,8 +117,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               FilledButton(
                 onPressed: isLoading ? null : _submit,
                 child: Text(isLoading
-                    ? 'Please wait...'
-                    : (_isRegisterMode ? 'Create account' : 'Sign in')),
+                    ? l10n.pleaseWait
+                    : (_isRegisterMode ? l10n.createAccount : l10n.signIn)),
               ),
               const SizedBox(height: 12),
               TextButton(
@@ -124,8 +126,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ? null
                     : () => setState(() => _isRegisterMode = !_isRegisterMode),
                 child: Text(_isRegisterMode
-                    ? 'Already have an account? Sign in'
-                    : 'No account? Register'),
+                    ? l10n.alreadyHaveAccount
+                    : l10n.noAccountRegister),
               ),
             ],
           ),

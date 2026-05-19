@@ -31,6 +31,16 @@ class AppDatabase extends _$AppDatabase {
         .watch();
   }
 
+  Stream<bool> watchIsFavorite({
+    required String userIdValue,
+    required String placeIdValue,
+  }) {
+    return (select(favoritePlaces)
+          ..where((t) => t.userId.equals(userIdValue) & t.placeId.equals(placeIdValue)))
+        .watchSingleOrNull()
+        .map((row) => row != null);
+  }
+
   Future<void> addOrUpdateFavorite({
     required String userIdValue,
     required String placeIdValue,

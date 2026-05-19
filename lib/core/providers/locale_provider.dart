@@ -8,7 +8,8 @@ class LocaleNotifier extends Notifier<Locale> {
   }
 
   void changeLocale(String languageCode) {
-    state = Locale(languageCode);
+    final normalized = languageCode == 'kz' ? 'kk' : languageCode;
+    state = Locale(normalized);
   }
 }
 

@@ -10,3 +10,11 @@ final placesProvider = FutureProvider<List<PlaceModel>>((ref) async {
   final service = ref.read(placeApiServiceProvider);
   return service.fetchPlaces();
 });
+
+final placeByIdProvider = FutureProvider.family<PlaceModel, int>((ref, id) async {
+  final places = await ref.watch(placesProvider.future);
+  return places.firstWhere(
+    (p) => p.id == id,
+    orElse: () => throw StateError('Place with id=$id not found'),
+  );
+});

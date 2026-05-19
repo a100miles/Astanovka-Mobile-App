@@ -6,6 +6,8 @@ class PlaceModel {
   final String category;
   final String address;
   final double rating;
+  final double latitude;
+  final double longitude;
 
   const PlaceModel({
     required this.id,
@@ -15,6 +17,8 @@ class PlaceModel {
     required this.category,
     required this.address,
     required this.rating,
+    required this.latitude,
+    required this.longitude,
   });
 
   factory PlaceModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +30,8 @@ class PlaceModel {
       category: json['category'],
       address: json['address'],
       rating: (json['rating'] as num).toDouble(),
+      latitude: (json['latitude'] as num?)?.toDouble() ?? 0.0,
+      longitude: (json['longitude'] as num?)?.toDouble() ?? 0.0,
     );
   }
 }
