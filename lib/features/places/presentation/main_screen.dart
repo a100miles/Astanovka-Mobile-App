@@ -7,6 +7,7 @@ import '../../profile/data/auth_repository.dart';
 import '../providers/place_provider.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/favorites_controller.dart';
+import '../../../core/ui/place_asset_image.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -176,19 +177,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                                     SizedBox(
                                       height: 250,
                                       width: double.infinity,
-                                      child: Image.network(
-                                        place.imageUrl,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stackTrace) =>
-                                            Container(
-                                          color: Colors.green.shade50,
-                                          child: const Icon(
-                                            Icons.landscape,
-                                            color: Colors.green,
-                                            size: 60,
-                                          ),
-                                        ),
-                                      ),
+                                      child: PlaceAssetImage(placeName: place.name),
                                     ),
                                     Positioned(
                                       top: 16,

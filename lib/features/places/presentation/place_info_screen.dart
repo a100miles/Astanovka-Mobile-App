@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../l10n/app_localizations.dart';
 import '../providers/place_provider.dart';
 import 'widgets/place_map.dart';
+import '../../../core/ui/place_asset_image.dart';
 
 class PlaceInfoScreen extends ConsumerWidget {
   const PlaceInfoScreen({super.key, required this.placeId});
@@ -34,16 +35,7 @@ class PlaceInfoScreen extends ConsumerWidget {
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(place.name),
-                  background: Image.network(
-                    place.imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: Colors.green.shade50,
-                      child: const Center(
-                        child: Icon(Icons.image_not_supported_outlined),
-                      ),
-                    ),
-                  ),
+                  background: PlaceAssetImage(placeName: place.name),
                 ),
               ),
               SliverToBoxAdapter(
