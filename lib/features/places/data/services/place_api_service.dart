@@ -5,7 +5,7 @@ import '../models/place_model.dart';
 import '../mock/mock_places.dart';
 
 class PlaceApiService {
-  static const String baseUrl = 'https://your-api-url.com/api/places';
+  static const String baseUrl = 'https://2gis.kz/astana';
 
   Future<List<PlaceModel>> fetchPlaces() async {
     try {
